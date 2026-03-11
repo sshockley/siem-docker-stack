@@ -41,7 +41,7 @@ if [[ "$EUID" -ne 0 ]]; then
 fi
 
 # ── System Updates ────────────────────────────────────────────────────────────
-echo -e "${YELLOW}[1/7] Updating system packages...${NC}"
+echo -e "${YELLOW}[1/7] Updating and installing packages...${NC}"
 dnf upgrade -y -q
 dnf install -y -q \
     curl wget gnupg2 \
