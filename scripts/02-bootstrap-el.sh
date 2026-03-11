@@ -42,8 +42,8 @@ fi
 
 # ── System Updates ────────────────────────────────────────────────────────────
 echo -e "${YELLOW}[1/7] Updating system packages...${NC}"
-dnf upgrade -y
-dnf install -y \
+dnf upgrade -y -q
+dnf install -y -q \
     curl wget gnupg2 \
     jq python3 python3-pip net-tools htop iotop \
     ca-certificates lsb-release gdisk
