@@ -75,7 +75,7 @@ fs.inotify.max_user_watches=524288
 fs.inotify.max_user_instances=512
 EOF
 
-sysctl --system
+sysctl --system --quiet
 echo -e "${GREEN}✓ Kernel tuning applied${NC}"
 
 # ── System Limits ─────────────────────────────────────────────────────────────
