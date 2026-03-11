@@ -156,33 +156,33 @@ systemctl enable --now firewalld
 firewall-cmd --set-log-denied=unicast
 
 # SSH (critical — don't lock yourself out!)
-firewall-cmd --permanent --add-service ssh
+firewall-cmd --permanent --quiet --add-service ssh
 firewall-cmd --reload
 
 # SIEM Core Services
-firewall-cmd --permanent --add-port=9200/tcp --set-description "OpenSearch HTTP"
-firewall-cmd --permanent --add-port=5601/tcp --set-description "OpenSearch Dashboards"
-firewall-cmd --permanent --add-port=3000/tcp --set-description "Grafana"
-firewall-cmd --permanent --add-port=8086/tcp --set-description "InfluxDB"
-firewall-cmd --permanent --add-port=9090/tcp --set-description "Prometheus"
+firewall-cmd --permanent --quiet --add-port=9200/tcp --set-description "OpenSearch HTTP"
+firewall-cmd --permanent --quiet --add-port=5601/tcp --set-description "OpenSearch Dashboards"
+firewall-cmd --permanent --quiet --add-port=3000/tcp --set-description "Grafana"
+firewall-cmd --permanent --quiet --add-port=8086/tcp --set-description "InfluxDB"
+firewall-cmd --permanent --quiet --add-port=9090/tcp --set-description "Prometheus"
 
 # Wazuh
-firewall-cmd --permanent --add-port=1514/udp --set-description "Wazuh agent"
-firewall-cmd --permanent --add-port=1515/tcp --set-description "Wazuh agent enrollment"
-firewall-cmd --permanent --add-port=55000/tcp --set-description "Wazuh API"
-firewall-cmd --permanent --add-port=443/tcp --set-description "Wazuh dashboard"
+firewall-cmd --permanent --quiet --add-port=1514/udp --set-description "Wazuh agent"
+firewall-cmd --permanent --quiet --add-port=1515/tcp --set-description "Wazuh agent enrollment"
+firewall-cmd --permanent --quiet --add-port=55000/tcp --set-description "Wazuh API"
+firewall-cmd --permanent --quiet --add-port=443/tcp --set-description "Wazuh dashboard"
 
 # Log Ingestion
-firewall-cmd --permanent --add-port=5140/udp --set-description "Logstash Suricata UDP"
-firewall-cmd --permanent --add-port=5044/tcp --set-description "Logstash Beats"
-firewall-cmd --permanent --add-port=514/udp --set-description "Syslog UDP"
-firewall-cmd --permanent --add-port=514/tcp --set-description "Syslog TCP"
+firewall-cmd --permanent --quiet --add-port=5140/udp --set-description "Logstash Suricata UDP"
+firewall-cmd --permanent --quiet --add-port=5044/tcp --set-description "Logstash Beats"
+firewall-cmd --permanent --quiet --add-port=514/udp --set-description "Syslog UDP"
+firewall-cmd --permanent --quiet --add-port=514/tcp --set-description "Syslog TCP"
 
 # Optional: Node Exporter (uncomment if using)
-#firewall-cmd --permanent --add-port=9100/tcp --set-description "Node Exporter"
+#firewall-cmd --permanent --quiet --add-port=9100/tcp --set-description "Node Exporter"
 
 # Optional: Portainer (uncomment if using)
-#firewall-cmd --permanent --add-port=9443/tcp --set-description "Portainer"
+#firewall-cmd --permanent --quiet --add-port=9443/tcp --set-description "Portainer"
 
 firewall-cmd --reload
 
