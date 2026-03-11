@@ -17,7 +17,9 @@
 set -euo pipefail
 
 # Set SIEM_USER via env var or default to current user
-SIEM_USER="${SIEM_USER:-$(logname 2>/dev/null || echo "${SUDO_USER:-siem}")}"
+#SIEM_USER="${SIEM_USER:-$(logname 2>/dev/null || echo "${SUDO_USER:-siem}")}"
+SIEM_USER=1000
+SIEM_GROUP=1000
 
 # Set your deployment directory
 DEPLOY_DIR="/opt/siem"
@@ -141,7 +143,7 @@ fi
 echo -e "${YELLOW}[5/7] Setting up deployment directory...${NC}"
 
 mkdir -p "${DEPLOY_DIR}"
-chown "${SIEM_USER}:${SIEM_USER}" "${DEPLOY_DIR}"
+chown "${SIEM_USER}:${SIEM_GROUP}" "${DEPLOY_DIR}"
 
 echo -e "${GREEN}✓ Deployment directory: ${DEPLOY_DIR}${NC}"
 
