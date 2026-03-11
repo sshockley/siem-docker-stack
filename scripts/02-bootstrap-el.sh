@@ -43,7 +43,6 @@ fi
 # ── System Updates ────────────────────────────────────────────────────────────
 echo -e "${YELLOW}[1/7] Updating system packages...${NC}"
 dnf upgrade -y
-# These seem to be all already installed on my AL10 systems
 dnf install -y \
     curl wget gnupg2 \
     jq python3 python3-pip net-tools htop iotop \
