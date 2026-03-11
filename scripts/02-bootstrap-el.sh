@@ -107,7 +107,7 @@ else
         podman-docker \
         cockpit-podman \
         podman-tui
-  
+
 #     # Production-ready Podman daemon config
 #     mkdir -p /etc/podman
 #     cat > /etc/podman/daemon.json <<EOF
@@ -133,8 +133,8 @@ else
 # }
 # EOF
 
-    systemctl enable podman
-    systemctl restart podman
+    systemctl enable --now podman
+    systemctl enable --now podman.socket
     echo -e "${GREEN}✓ Podman installed: $(podman --version)${NC}"
 fi
 
@@ -152,11 +152,11 @@ echo -e "${YELLOW}[6/7] Configuring firewalld...${NC}"
 systemctl enable --now firewalld
 
 # Log blocked packets
-firewall-cmd --set-log-denied=unicast
+firewall-cmd --permanent --quiet --set-log-denied=unicast
 
 # SSH (critical — don't lock yourself out!)
 firewall-cmd --permanent --quiet --add-service ssh
-firewall-cmd --reload
+firewall-cmd --reload --quiet
 
 # SIEM Core Services
 firewall-cmd --permanent --quiet --add-port=9200/tcp --set-description "OpenSearch HTTP"
@@ -183,7 +183,7 @@ firewall-cmd --permanent --quiet --add-port=514/tcp --set-description "Syslog TC
 # Optional: Portainer (uncomment if using)
 #firewall-cmd --permanent --quiet --add-port=9443/tcp --set-description "Portainer"
 
-firewall-cmd --reload
+firewall-cmd --reload --quiet
 
 echo -e "${GREEN}✓ Firewall configured${NC}"
 
