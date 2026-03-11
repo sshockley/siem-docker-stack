@@ -35,7 +35,7 @@ echo -e "${CYAN}║  SIEM Server — System Bootstrap          ║${NC}"
 echo -e "${CYAN}╚══════════════════════════════════════════╝${NC}"
 echo ""
 
-if [ "$EUID" -ne 0 ]; then
+if [[ "$EUID" -ne 0 ]]; then
     echo -e "${RED}ERROR: Must run as root (sudo)${NC}"
     exit 1
 fi
