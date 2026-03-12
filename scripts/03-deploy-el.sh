@@ -126,6 +126,20 @@ run_on_server "cd ${DEPLOY_DIR} && podman compose -f generate-indexer-certs.yml 
 run_on_server "cd ${DEPLOY_DIR} && podman compose -f generate-indexer-certs.yml down"
 echo -e "${GREEN}✓ Generated certificates${NC}"
 
+# Create empty files for certificates so Podman doesn't create directories instead of files
+echo ""
+echo -e "${YELLOW}Creating certificate stubs...${NC}"
+run_on_server "
+    sudo touch ${DEPLOY_DIR}/certs/filebeat-key.pem
+    sudo touch ${DEPLOY_DIR}/certs/filebeat.pem
+    sudo touch ${DEPLOY_DIR}/certs/wazuh-dashboard-key.pem
+    sudo touch ${DEPLOY_DIR}/certs/wazuh-dashboard.pem
+    sudo touch ${DEPLOY_DIR}/certs/wazuh-indexer-key.pem
+    sudo touch ${DEPLOY_DIR}/certs/wazuh-indexer.pem
+"
+echo -e "${GREEN}✓ Created certificate stubs${NC}"
+
+
 # Start the stack
 echo ""
 echo -e "${YELLOW}Starting SIEM stack...${NC}"

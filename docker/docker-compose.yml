@@ -291,8 +291,8 @@ services:
       - /data/hot/wazuh/indexer:/var/lib/wazuh-indexer:z
       - ./wazuh/wazuh-indexer.yml:/usr/share/wazuh-indexer/opensearch.yml:ro,z
       - ./wazuh/certs/root-ca.pem:/usr/share/wazuh-indexer/certs/root-ca.pem:ro,z
-      - ./wazuh/certs/wazuh-indexer.pem:/usr/share/wazuh-indexer/certs/wazuh-indexer.pem:ro,z
-      - ./wazuh/certs/wazuh-indexer-key.pem:/usr/share/wazuh-indexer/certs/wazuh-indexer-key.pem:ro,z
+      - ./wazuh/certs/wazuh.indexer.pem:/usr/share/wazuh-indexer/certs/wazuh.indexer.pem:ro,z
+      - ./wazuh/certs/wazuh.indexer.key.pem:/usr/share/wazuh-indexer/certs/wazuh.indexer.key.pem:ro,z
       - ./wazuh/certs/admin.pem:/usr/share/wazuh-indexer/certs/admin.pem:ro,z
       - ./wazuh/certs/admin-key.pem:/usr/share/wazuh-indexer/certs/admin-key.pem:ro,z
     ports:
@@ -319,8 +319,8 @@ services:
     volumes:
       - ./wazuh/opensearch_dashboards.yml:/usr/share/wazuh-dashboard/config/opensearch_dashboards.yml:ro,z
       - ./wazuh/certs/root-ca.pem:/etc/wazuh-dashboard/certs/root-ca.pem:ro,z
-      - ./wazuh/certs/wazuh-dashboard.pem:/etc/wazuh-dashboard/certs/dashboard.pem:ro,z
-      - ./wazuh/certs/wazuh-dashboard-key.pem:/etc/wazuh-dashboard/certs/dashboard-key.pem:ro,z
+      - ./wazuh/certs/wazuh.dashboard.pem:/etc/wazuh-dashboard/certs/dashboard.pem:ro,z
+      - ./wazuh/certs/wazuh.dashboard.key.pem:/etc/wazuh-dashboard/certs/dashboard.key.pem:ro,z
     ports:
       - "${WAZUH_DASHBOARD_PORT:-443}:443"
     networks:
