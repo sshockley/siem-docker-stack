@@ -333,23 +333,23 @@ services:
 # Requires a read-only user on your UniFi Controller.
 # See: https://github.com/unpoller/unpoller
 
-  unifi-poller:
-    image: ghcr.io/unpoller/unpoller:latest
-    container_name: unifi-poller
-    restart: unless-stopped
-    depends_on:
-      - influxdb
-    environment:
-      - UP_INFLUXDB_URL=http://influxdb:8086
-      - UP_INFLUXDB_DB=${UNIFI_INFLUXDB:-unpoller}
-      - UP_UNIFI_DEFAULT_URL=${UNIFI_URL:-https://unifi.example.com}
-      - UP_UNIFI_DEFAULT_USER=${UNIFI_USER:-unpoller}
-      - UP_UNIFI_DEFAULT_PASS=${UNIFI_PASS:-changeme}
-      - UP_UNIFI_DEFAULT_VERIFY_SSL=false
-      - UP_UNIFI_DEFAULT_SAVE_DPI=true
-      - UP_PROMETHEUS_DISABLE=true
-    networks:
-      - siem-net
+  # unifi-poller:
+  #   image: ghcr.io/unpoller/unpoller:latest
+  #   container_name: unifi-poller
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - influxdb
+  #   environment:
+  #     - UP_INFLUXDB_URL=http://influxdb:8086
+  #     - UP_INFLUXDB_DB=${UNIFI_INFLUXDB:-unpoller}
+  #     - UP_UNIFI_DEFAULT_URL=${UNIFI_URL:-https://unifi.example.com}
+  #     - UP_UNIFI_DEFAULT_USER=${UNIFI_USER:-unpoller}
+  #     - UP_UNIFI_DEFAULT_PASS=${UNIFI_PASS:-changeme}
+  #     - UP_UNIFI_DEFAULT_VERIFY_SSL=false
+  #     - UP_UNIFI_DEFAULT_SAVE_DPI=true
+  #     - UP_PROMETHEUS_DISABLE=true
+  #   networks:
+  #     - siem-net
 
 # =============================================================================
 # SYSLOG-NG — Centralized Syslog Receiver
@@ -403,5 +403,5 @@ services:
   #   networks:
   #     - siem-net
 
-volumes:
-  portainer_data:
+# volumes:
+#   portainer_data:
