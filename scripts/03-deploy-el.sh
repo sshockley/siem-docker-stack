@@ -123,9 +123,8 @@ echo -e "${GREEN}✓ Permissions set${NC}"
 echo ""
 echo -e "${YELLOW}Generating Wazuh certificates...${NC}"
 run_on_server "cd ${DEPLOY_DIR} && podman compose -f generate-indexer-certs.yml pull && podman compose -f generate-indexer-certs.yml up"
+run_on_server "cd ${DEPLOY_DIR} && podman compose -f generate-indexer-certs.yml down"
 echo -e "${GREEN}✓ Generated certificates${NC}"
-
-exit 2
 
 # Start the stack
 echo ""
