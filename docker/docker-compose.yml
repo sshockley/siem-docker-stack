@@ -155,7 +155,8 @@ services:
       - "${LOGSTASH_UDP_PORT:-5140}:5140/udp"
       - "${LOGSTASH_BEATS_PORT:-5044}:5044"
     networks:
-      - siem-net
+      siem-net:
+        ipv4_address: 172.20.0.12
 
 # =============================================================================
 # GRAFANA — Dashboards & Visualization
@@ -179,7 +180,8 @@ services:
     ports:
       - "${GRAFANA_PORT:-3000}:3000"
     networks:
-      - siem-net
+      siem-net:
+        ipv4_address: 172.20.0.13
     user: "472"
 
 # =============================================================================
@@ -211,7 +213,8 @@ services:
     ports:
       - "${INFLUXDB_PORT:-8086}:8086"
     networks:
-      - siem-net
+      siem-net:
+        ipv4_address: 172.20.0.14
 
 # =============================================================================
 # PROMETHEUS — Metrics Scraping & Alerting
@@ -232,7 +235,8 @@ services:
       - '--storage.tsdb.retention.time=${PROMETHEUS_RETENTION:-365d}'
       - '--web.enable-lifecycle'
     networks:
-      - siem-net
+      siem-net:
+        ipv4_address: 172.20.0.15
     user: "65534"
 
 # =============================================================================
@@ -278,7 +282,8 @@ services:
       - "1515:1515"
       - "${WAZUH_API_PORT:-55000}:55000"
     networks:
-      - siem-net
+      siem-net:
+        ipv4_address: 172.20.0.16
 
   wazuh-indexer:
     image: wazuh/wazuh-indexer:${WAZUH_VERSION:-4.9.2}
@@ -298,7 +303,9 @@ services:
     ports:
       - "${WAZUH_INDEXER_PORT:-9202}:9200"
     networks:
-      - siem-net
+      siem-net:
+        ipv4_address: 172.20.0.17
+
 
   wazuh-dashboard:
     image: wazuh/wazuh-dashboard:${WAZUH_VERSION:-4.9.2}
@@ -324,7 +331,9 @@ services:
     ports:
       - "${WAZUH_DASHBOARD_PORT:-443}:443"
     networks:
-      - siem-net
+      siem-net:
+        ipv4_address: 172.20.0.18
+
 
 # =============================================================================
 # UNIFI POLLER — UniFi Network Telemetry (Optional)
@@ -348,8 +357,10 @@ services:
   #     - UP_UNIFI_DEFAULT_VERIFY_SSL=false
   #     - UP_UNIFI_DEFAULT_SAVE_DPI=true
   #     - UP_PROMETHEUS_DISABLE=true
-  #   networks:
-  #     - siem-net
+    # networks:
+    #   siem-net:
+    #     ipv4_address: 172.20.0.19
+
 
 # =============================================================================
 # SYSLOG-NG — Centralized Syslog Receiver
@@ -368,7 +379,9 @@ services:
       - "${SYSLOG_UDP_PORT:-514}:514/udp"
       - "${SYSLOG_TCP_PORT:-514}:514/tcp"
     networks:
-      - siem-net
+      siem-net:
+        ipv4_address: 172.20.0.20
+
 
 # =============================================================================
 # PORTAINER CE — Docker Management UI (Optional)
@@ -388,8 +401,10 @@ services:
   #     - ./crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml:ro,z
   #     - /var/log:/var/log:ro,z
   #     - /data/hot/crowdsec:/var/lib/crowdsec/data:z
-  #   networks:
-  #     - siem-net
+    # networks:
+    #   siem-net:
+    #     ipv4_address: 172.20.0.21
+
 
   # portainer:
   #   image: portainer/portainer-ce:lts
@@ -400,8 +415,9 @@ services:
   #     - portainer_data:/data:z
   #   ports:
   #     - "9443:9443"
-  #   networks:
-  #     - siem-net
+    # networks:
+    #   siem-net:
+    #     ipv4_address: 172.20.0.22
 
 # volumes:
 #   portainer_data:
