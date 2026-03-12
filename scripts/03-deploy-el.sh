@@ -122,7 +122,7 @@ echo -e "${GREEN}✓ Permissions set${NC}"
 # Generate Wazuh certificates
 echo ""
 echo -e "${YELLOW}Generating Wazuh certificates...${NC}"
-run_on_server "cd ${DEPLOY_DIR} && podman compose -f generate-indexer-certs.yml pull && podman compose up -f generate-indexer-certs.yml"
+run_on_server "cd ${DEPLOY_DIR} && podman compose -f generate-indexer-certs.yml pull && podman compose -f generate-indexer-certs.yml up"
 echo -e "${GREEN}✓ Generated certificates${NC}"
 
 exit 2
