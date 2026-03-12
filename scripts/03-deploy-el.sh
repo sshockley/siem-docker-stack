@@ -85,11 +85,11 @@ run_on_server "sudo mkdir -p ${DEPLOY_DIR} && sudo chown ${SIEM_USER}:${SIEM_GRO
 
 if ${LOCAL_MODE}; then
     # Local: just copy
-    cp -r "${REPO_DIR}/podman/"* "${DEPLOY_DIR}/"
+    cp -r "${REPO_DIR}/docker/"* "${DEPLOY_DIR}/"
 else
     # Remote: rsync
     rsync -avz --delete \
-        "${REPO_DIR}/podman/" \
+        "${REPO_DIR}/docker/" \
         "${SIEM_USER}@${SIEM_HOST}:${DEPLOY_DIR}/"
 fi
 
