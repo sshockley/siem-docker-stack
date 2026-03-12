@@ -34,7 +34,7 @@ echo ""
 
 # Determine deployment mode
 LOCAL_MODE=false
-if [ "$SIEM_HOST" = "local" ] || [ "$SIEM_HOST" = "localhost" ] || [ "$SIEM_HOST" = "127.0.0.1" ]; then
+if [[ "${SIEM_HOST}" = "local" ]] || [[ "${SIEM_HOST}" = "localhost" ]] || [[ "${SIEM_HOST}" = "127.0.0.1" ]]; then
     LOCAL_MODE=true
     echo "Mode: LOCAL deployment"
 else
@@ -42,7 +42,7 @@ else
 fi
 
 run_on_server() {
-    if $LOCAL_MODE; then
+    if ${LOCAL_MODE}; then
         eval "$1"
     else
         ssh "${SIEM_USER}@${SIEM_HOST}" "$1"
@@ -50,7 +50,7 @@ run_on_server() {
 }
 
 # Verify connectivity (remote mode only)
-if ! $LOCAL_MODE; then
+if ! ${LOCAL_MODE}; then
     echo -e "${YELLOW}Testing SSH connectivity...${NC}"
     if ! ssh -o ConnectTimeout=5 -o BatchMode=yes "${SIEM_USER}@${SIEM_HOST}" "echo ok" > /dev/null 2>&1; then
         echo -e "${RED}Cannot SSH to ${SIEM_USER}@${SIEM_HOST}${NC}"
@@ -82,7 +82,7 @@ echo -e "${YELLOW}Deploying Docker configs to ${DEPLOY_DIR}...${NC}"
 
 run_on_server "sudo mkdir -p ${DEPLOY_DIR} && sudo chown \$(whoami):\$(whoami) ${DEPLOY_DIR}"
 
-if $LOCAL_MODE; then
+if ${LOCAL_MODE}; then
     # Local: just copy
     cp -r "${REPO_DIR}/docker/"* "${DEPLOY_DIR}/"
 else
@@ -93,8 +93,8 @@ else
 fi
 
 # Copy .env if it exists
-if [ -f "${REPO_DIR}/.env" ]; then
-    if $LOCAL_MODE; then
+if [[ -f "${REPO_DIR}/.env" ]]; then
+    if ${LOCAL_MODE}; then
         cp "${REPO_DIR}/.env" "${DEPLOY_DIR}/.env"
     else
         scp "${REPO_DIR}/.env" "${SIEM_USER}@${SIEM_HOST}:${DEPLOY_DIR}/.env"
@@ -129,7 +129,7 @@ echo -e "${GREEN}║  SIEM Stack Deployed                     ║${NC}"
 echo -e "${GREEN}╚══════════════════════════════════════════╝${NC}"
 echo ""
 
-if $LOCAL_MODE; then
+if ${LOCAL_MODE}; then
     HOST_DISPLAY="localhost"
 else
     HOST_DISPLAY="${SIEM_HOST}"
