@@ -320,7 +320,7 @@ services:
       - ./wazuh/opensearch_dashboards.yml:/usr/share/wazuh-dashboard/config/opensearch_dashboards.yml:ro,z
       - ./wazuh/certs/root-ca.pem:/etc/wazuh-dashboard/certs/root-ca.pem:ro,z
       - ./wazuh/certs/wazuh.dashboard.pem:/etc/wazuh-dashboard/certs/dashboard.pem:ro,z
-      - ./wazuh/certs/wazuh.dashboard.key.pem:/etc/wazuh-dashboard/certs/dashboard.key.pem:ro,z
+      - ./wazuh/certs/wazuh.dashboard-key.pem:/etc/wazuh-dashboard/certs/dashboard-key.pem:ro,z
     ports:
       - "${WAZUH_DASHBOARD_PORT:-443}:443"
     networks:
