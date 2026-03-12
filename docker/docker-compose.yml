@@ -62,8 +62,8 @@ services:
         soft: 65536
         hard: 65536
     volumes:
-      - /data/hot/opensearch:/usr/share/opensearch/data:Z
-      - ./opensearch/opensearch-hot.yml:/usr/share/opensearch/config/opensearch.yml:ro,Z
+      - /data/hot/opensearch:/usr/share/opensearch/data:z
+      - ./opensearch/opensearch-hot.yml:/usr/share/opensearch/config/opensearch.yml:ro,z
     ports:
       - "${OPENSEARCH_PORT:-9200}:9200"
       - "9300:9300"
@@ -104,8 +104,8 @@ services:
         soft: 65536
         hard: 65536
     volumes:
-      - /data/warm/opensearch:/usr/share/opensearch/data:Z
-      - ./opensearch/opensearch-warm.yml:/usr/share/opensearch/config/opensearch.yml:ro,Z
+      - /data/warm/opensearch:/usr/share/opensearch/data:z
+      - ./opensearch/opensearch-warm.yml:/usr/share/opensearch/config/opensearch.yml:ro,z
     ports:
       - "9201:9200"
       - "9301:9300"
@@ -148,9 +148,9 @@ services:
     environment:
       - "LS_JAVA_OPTS=-Xms${LOGSTASH_HEAP:-2g} -Xmx${LOGSTASH_HEAP:-2g}"
     volumes:
-      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro,Z
-      - ./logstash/logstash.yml:/usr/share/logstash/config/logstash.yml:ro,Z
-      - /data/hot/logstash:/usr/share/logstash/data:Z
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro,z
+      - ./logstash/logstash.yml:/usr/share/logstash/config/logstash.yml:ro,z
+      - /data/hot/logstash:/usr/share/logstash/data:z
     ports:
       - "${LOGSTASH_UDP_PORT:-5140}:5140/udp"
       - "${LOGSTASH_BEATS_PORT:-5044}:5044"
@@ -174,8 +174,8 @@ services:
       - GF_INSTALL_PLUGINS=grafana-opensearch-datasource,grafana-clock-panel,grafana-worldmap-panel
       - GF_SERVER_ROOT_URL=http://${SIEM_HOST:-localhost}:3000
     volumes:
-      - /data/warm/grafana:/var/lib/grafana:Z
-      - ./grafana/provisioning:/etc/grafana/provisioning:ro,Z
+      - /data/warm/grafana:/var/lib/grafana:z
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro,z
     ports:
       - "${GRAFANA_PORT:-3000}:3000"
     networks:
@@ -207,7 +207,7 @@ services:
         influx -execute 'CREATE DATABASE telegraf'
         wait
     volumes:
-      - /data/hot/influxdb:/var/lib/influxdb:Z
+      - /data/hot/influxdb:/var/lib/influxdb:z
     ports:
       - "${INFLUXDB_PORT:-8086}:8086"
     networks:
@@ -222,8 +222,8 @@ services:
     container_name: prometheus
     restart: unless-stopped
     volumes:
-      - /data/hot/prometheus:/prometheus:Z
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro,Z
+      - /data/hot/prometheus:/prometheus:z
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro,z
     ports:
       - "${PROMETHEUS_PORT:-9090}:9090"
     command:
@@ -264,15 +264,15 @@ services:
       - SSL_CERTIFICATE=/etc/ssl/filebeat.pem
       - SSL_KEY=/etc/ssl/filebeat-key.pem
     volumes:
-      - /data/hot/wazuh/manager/data:/var/ossec/data:Z
-      - /data/hot/wazuh/manager/etc:/var/ossec/etc:Z
-      - /data/hot/wazuh/manager/logs:/var/ossec/logs:Z
-      - /data/hot/wazuh/manager/queue:/var/ossec/queue:Z
-      - /data/hot/wazuh/manager/integrations:/var/ossec/integrations:Z
-      - /data/hot/wazuh/manager/active-response:/var/ossec/active-response/bin:Z
-      - ./wazuh/certs/root-ca.pem:/etc/ssl/root-ca.pem:ro,Z
-      - ./wazuh/certs/filebeat.pem:/etc/ssl/filebeat.pem:ro,Z
-      - ./wazuh/certs/filebeat-key.pem:/etc/ssl/filebeat-key.pem:ro,Z
+      - /data/hot/wazuh/manager/data:/var/ossec/data:z
+      - /data/hot/wazuh/manager/etc:/var/ossec/etc:z
+      - /data/hot/wazuh/manager/logs:/var/ossec/logs:z
+      - /data/hot/wazuh/manager/queue:/var/ossec/queue:z
+      - /data/hot/wazuh/manager/integrations:/var/ossec/integrations:z
+      - /data/hot/wazuh/manager/active-response:/var/ossec/active-response/bin:z
+      - ./wazuh/certs/root-ca.pem:/etc/ssl/root-ca.pem:ro,z
+      - ./wazuh/certs/filebeat.pem:/etc/ssl/filebeat.pem:ro,z
+      - ./wazuh/certs/filebeat-key.pem:/etc/ssl/filebeat-key.pem:ro,z
     ports:
       - "${WAZUH_MANAGER_PORT:-1514}:1514/udp"
       - "1515:1515"
@@ -288,13 +288,13 @@ services:
     environment:
       - "OPENSEARCH_JAVA_OPTS=-Xms${WAZUH_INDEXER_HEAP:-4g} -Xmx${WAZUH_INDEXER_HEAP:-4g}"
     volumes:
-      - /data/hot/wazuh/indexer:/var/lib/wazuh-indexer:Z
-      - ./wazuh/wazuh-indexer.yml:/usr/share/wazuh-indexer/opensearch.yml:ro,Z
-      - ./wazuh/certs/root-ca.pem:/usr/share/wazuh-indexer/certs/root-ca.pem:ro,Z
-      - ./wazuh/certs/wazuh-indexer.pem:/usr/share/wazuh-indexer/certs/wazuh-indexer.pem:ro,Z
-      - ./wazuh/certs/wazuh-indexer-key.pem:/usr/share/wazuh-indexer/certs/wazuh-indexer-key.pem:ro,Z
-      - ./wazuh/certs/admin.pem:/usr/share/wazuh-indexer/certs/admin.pem:ro,Z
-      - ./wazuh/certs/admin-key.pem:/usr/share/wazuh-indexer/certs/admin-key.pem:ro,Z
+      - /data/hot/wazuh/indexer:/var/lib/wazuh-indexer:z
+      - ./wazuh/wazuh-indexer.yml:/usr/share/wazuh-indexer/opensearch.yml:ro,z
+      - ./wazuh/certs/root-ca.pem:/usr/share/wazuh-indexer/certs/root-ca.pem:ro,z
+      - ./wazuh/certs/wazuh-indexer.pem:/usr/share/wazuh-indexer/certs/wazuh-indexer.pem:ro,z
+      - ./wazuh/certs/wazuh-indexer-key.pem:/usr/share/wazuh-indexer/certs/wazuh-indexer-key.pem:ro,z
+      - ./wazuh/certs/admin.pem:/usr/share/wazuh-indexer/certs/admin.pem:ro,z
+      - ./wazuh/certs/admin-key.pem:/usr/share/wazuh-indexer/certs/admin-key.pem:ro,z
     ports:
       - "${WAZUH_INDEXER_PORT:-9202}:9200"
     networks:
@@ -317,10 +317,10 @@ services:
       - DASHBOARD_USERNAME=kibanaserver
       - DASHBOARD_PASSWORD=kibanaserver
     volumes:
-      - ./wazuh/opensearch_dashboards.yml:/usr/share/wazuh-dashboard/config/opensearch_dashboards.yml:ro,Z
-      - ./wazuh/certs/root-ca.pem:/etc/wazuh-dashboard/certs/root-ca.pem:ro,Z
-      - ./wazuh/certs/wazuh-dashboard.pem:/etc/wazuh-dashboard/certs/dashboard.pem:ro,Z
-      - ./wazuh/certs/wazuh-dashboard-key.pem:/etc/wazuh-dashboard/certs/dashboard-key.pem:ro,Z
+      - ./wazuh/opensearch_dashboards.yml:/usr/share/wazuh-dashboard/config/opensearch_dashboards.yml:ro,z
+      - ./wazuh/certs/root-ca.pem:/etc/wazuh-dashboard/certs/root-ca.pem:ro,z
+      - ./wazuh/certs/wazuh-dashboard.pem:/etc/wazuh-dashboard/certs/dashboard.pem:ro,z
+      - ./wazuh/certs/wazuh-dashboard-key.pem:/etc/wazuh-dashboard/certs/dashboard-key.pem:ro,z
     ports:
       - "${WAZUH_DASHBOARD_PORT:-443}:443"
     networks:
@@ -362,8 +362,8 @@ services:
     depends_on:
       - logstash
     volumes:
-      - ./syslog-ng/syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf:ro,Z
-      - /data/warm/archives/syslog:/var/log/syslog-ng:Z
+      - ./syslog-ng/syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf:ro,z
+      - /data/warm/archives/syslog:/var/log/syslog-ng:z
     ports:
       - "${SYSLOG_UDP_PORT:-514}:514/udp"
       - "${SYSLOG_TCP_PORT:-514}:514/tcp"
@@ -385,9 +385,9 @@ services:
   #     - TZ=${TZ:-UTC}
   #     - COLLECTIONS=crowdsecurity/linux crowdsecurity/sshd
   #   volumes:
-  #     - ./crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml:ro,Z
-  #     - /var/log:/var/log:ro,Z
-  #     - /data/hot/crowdsec:/var/lib/crowdsec/data:Z
+  #     - ./crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml:ro,z
+  #     - /var/log:/var/log:ro,z
+  #     - /data/hot/crowdsec:/var/lib/crowdsec/data:z
   #   networks:
   #     - siem-net
 
@@ -396,8 +396,8 @@ services:
   #   container_name: portainer
   #   restart: unless-stopped
   #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock:Z
-  #     - portainer_data:/data:Z
+  #     - /var/run/docker.sock:/var/run/docker.sock:z
+  #     - portainer_data:/data:z
   #   ports:
   #     - "9443:9443"
   #   networks:
