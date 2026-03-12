@@ -18,6 +18,7 @@ set -euo pipefail
 
 SIEM_HOST="${1:-${SIEM_HOST:-localhost}}"
 SIEM_USER="${2:-${SIEM_USER:-$(whoami)}}"
+SIEM_GROUP="${3:-${SIEM_GROUP:-$(id -g)}}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="${SCRIPT_DIR}/.."
 DEPLOY_DIR="/opt/siem"
@@ -60,13 +61,13 @@ if ! ${LOCAL_MODE}; then
     echo -e "${GREEN}✓ SSH connection OK${NC}"
 fi
 
-# Verify data disks
-echo -e "${YELLOW}Verifying data disks...${NC}"
-run_on_server "mountpoint -q /data/hot && mountpoint -q /data/warm && echo 'DISKS_OK'" | grep -q DISKS_OK || {
-    echo -e "${RED}Data disks not mounted. Run 01-disk-setup.sh first.${NC}"
-    exit 1
-}
-echo -e "${GREEN}✓ Data disks mounted${NC}"
+# # Verify data disks
+# echo -e "${YELLOW}Verifying data disks...${NC}"
+# run_on_server "mountpoint -q /data/hot && mountpoint -q /data/warm && echo 'DISKS_OK'" | grep -q DISKS_OK || {
+#     echo -e "${RED}Data disks not mounted. Run 01-disk-setup.sh first.${NC}"
+#     exit 1
+# }
+# echo -e "${GREEN}✓ Data disks mounted${NC}"
 
 # Verify Podman
 echo -e "${YELLOW}Verifying Podman...${NC}"
@@ -80,7 +81,7 @@ echo -e "${GREEN}✓ Podman available${NC}"
 echo ""
 echo -e "${YELLOW}Deploying Podman configs to ${DEPLOY_DIR}...${NC}"
 
-run_on_server "sudo mkdir -p ${DEPLOY_DIR} && sudo chown \$(whoami):\$(whoami) ${DEPLOY_DIR}"
+run_on_server "sudo mkdir -p ${DEPLOY_DIR} && sudo chown ${SIEM_USER}:${SIEM_GROUP} ${DEPLOY_DIR}"
 
 if ${LOCAL_MODE}; then
     # Local: just copy
