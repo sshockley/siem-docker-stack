@@ -112,10 +112,10 @@ echo -e "${GREEN}✓ Podman configs deployed${NC}"
 echo ""
 echo -e "${YELLOW}Fixing data directory permissions...${NC}"
 run_on_server "
-    sudo chown -R 1000:1000 /data/hot/opensearch /data/warm/opensearch 2>/dev/null || true
+    sudo chown -R ${SIEM_USER}:${SIEM_GROUP} /data/hot/opensearch /data/warm/opensearch 2>/dev/null || true
     sudo chown -R 472:472 /data/warm/grafana 2>/dev/null || true
     sudo chown -R 65534:65534 /data/hot/prometheus 2>/dev/null || true
-    sudo chown -R 1000:1000 /data/hot/wazuh/indexer 2>/dev/null || true
+    sudo chown -R ${SIEM_USER}:${SIEM_GROUP} /data/hot/wazuh/indexer 2>/dev/null || true
 "
 echo -e "${GREEN}✓ Permissions set${NC}"
 
