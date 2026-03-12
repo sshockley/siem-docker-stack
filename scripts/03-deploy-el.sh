@@ -8,7 +8,7 @@
 #
 # Usage:
 #   # Remote deployment (from workstation):
-#   bash scripts/03-deploy.sh 10.0.0.100 myuser
+#   bash scripts/03-deploy.sh 10.0.0.100 myuser mygroup
 #
 #   # Local deployment (on the SIEM server):
 #   bash scripts/03-deploy.sh local
@@ -118,6 +118,14 @@ run_on_server "
     sudo chown -R ${SIEM_USER}:${SIEM_GROUP} /data/hot/wazuh/indexer 2>/dev/null || true
 "
 echo -e "${GREEN}✓ Permissions set${NC}"
+
+# Generate Wazuh certificates
+echo ""
+echo -e "${YELLOW}Generating Wazuh certificates...${NC}"
+run_on_server "cd ${DEPLOY_DIR} && podman compose -f generate-index-certs.yml pull && podman compose up -f generate-index-certs.yml"
+echo -e "${GREEN}✓ Generated certificates${NC}"
+
+exit 2
 
 # Start the stack
 echo ""
