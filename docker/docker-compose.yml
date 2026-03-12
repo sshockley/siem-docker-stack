@@ -391,17 +391,17 @@ services:
     networks:
       - siem-net
 
-  portainer:
-    image: portainer/portainer-ce:lts
-    container_name: portainer
-    restart: unless-stopped
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:Z
-      - portainer_data:/data:Z
-    ports:
-      - "9443:9443"
-    networks:
-      - siem-net
+  # portainer:
+  #   image: portainer/portainer-ce:lts
+  #   container_name: portainer
+  #   restart: unless-stopped
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock:Z
+  #     - portainer_data:/data:Z
+  #   ports:
+  #     - "9443:9443"
+  #   networks:
+  #     - siem-net
 
 volumes:
   portainer_data:
