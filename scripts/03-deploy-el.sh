@@ -136,6 +136,9 @@ run_on_server "
     sudo touch ${DEPLOY_DIR}/wazuh/certs/wazuh.dashboard.pem
     sudo touch ${DEPLOY_DIR}/wazuh/certs/wazuh.indexer-key.pem
     sudo touch ${DEPLOY_DIR}/wazuh/certs/wazuh.indexer.pem
+    # These should be mistakes
+    sudo touch ${DEPLOY_DIR}/wazuh/certs/wazuh.dashboard.key.pem
+    sudo touch ${DEPLOY_DIR}/wazuh/certs/wazuh.indexer.key.pem
 "
 echo -e "${GREEN}✓ Created certificate stubs${NC}"
 
