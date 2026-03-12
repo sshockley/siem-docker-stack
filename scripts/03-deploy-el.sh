@@ -132,10 +132,10 @@ echo -e "${YELLOW}Creating certificate stubs...${NC}"
 run_on_server "
     sudo touch ${DEPLOY_DIR}/wazuh/certs/filebeat-key.pem
     sudo touch ${DEPLOY_DIR}/wazuh/certs/filebeat.pem
-    sudo touch ${DEPLOY_DIR}/wazuh/certs/wazuh-dashboard-key.pem
-    sudo touch ${DEPLOY_DIR}/wazuh/certs/wazuh-dashboard.pem
-    sudo touch ${DEPLOY_DIR}/wazuh/certs/wazuh-indexer-key.pem
-    sudo touch ${DEPLOY_DIR}/wazuh/certs/wazuh-indexer.pem
+    # sudo touch ${DEPLOY_DIR}/wazuh/certs/wazuh-dashboard-key.pem
+    # sudo touch ${DEPLOY_DIR}/wazuh/certs/wazuh-dashboard.pem
+    # sudo touch ${DEPLOY_DIR}/wazuh/certs/wazuh-indexer-key.pem
+    # sudo touch ${DEPLOY_DIR}/wazuh/certs/wazuh-indexer.pem
 "
 echo -e "${GREEN}✓ Created certificate stubs${NC}"
 
